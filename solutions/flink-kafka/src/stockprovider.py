@@ -21,9 +21,7 @@ class StockProvider(BaseProvider):
     def stock_value(self, symbol):
         indexStock = StockSymbols.index(symbol)
         currentval = StockCurrentValues[indexStock]
-        goesup = 1
-        if random.random() > StockUpProb[indexStock]:
-            goesup = -1
+        goesup = -1 if random.random() > StockUpProb[indexStock] else 1
         nextval = round(currentval + random.random() * ChangeAmount * goesup,
                         2)
         StockCurrentValues[indexStock] = nextval

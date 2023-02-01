@@ -82,11 +82,10 @@ class ServiceManager:
     def _create_service(self, service_spec, timeout=600):
         start = time.monotonic()
         while time.monotonic() - start < timeout:
-            service = self._get_service(self.project, service_spec)
-            if service:
+            if service := self._get_service(self.project, service_spec):
                 return service
             time.sleep(5)
-        raise TimeoutError("Creating service timed out after {} seconds".format(timeout))
+        raise TimeoutError(f"Creating service timed out after {timeout} seconds")
 
     def _get_service(self, project, service_spec):
         try:
@@ -156,8 +155,7 @@ def teardown_module(*args, **kwargs):
 
 
 def install_dependencies(config):
-    commands = list()
-    commands.extend([f"go get {dependency}" for dependency in config["go_dependencies"]])
+    commands = [f"go get {dependency}" for dependency in config["go_dependencies"]]
     commands.extend([f"npm install --prefix {prefix}" for prefix in config["nodejs_dependencies"]])
     commands.extend(
         [f"python3 -m pip --disable-pip-version-check install {dependency}" for dependency in config["python_dependencies"]])

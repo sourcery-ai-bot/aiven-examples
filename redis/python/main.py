@@ -24,7 +24,7 @@ def main():
     client.set('pythonRedisExample', 'python')
 
     value = client.get("pythonRedisExample")
-    print("The value for 'pythonRedisExample' is: '%s'" % value.decode('utf-8'))
+    print(f"The value for 'pythonRedisExample' is: '{value.decode('utf-8')}'")
 
 
 if __name__ == "__main__":

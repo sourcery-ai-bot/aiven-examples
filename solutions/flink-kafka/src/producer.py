@@ -33,7 +33,7 @@ def main():
 
     while 1:
         # sending 16 messages every 5 seconds
-        for i in range(16):
+        for _ in range(16):
             message, key = fake.produce_msg()
             # print(f'{key}:{message}')
             print(f'{json.dumps(message)}')

@@ -11,7 +11,7 @@ def cassandra_example(args):
     auth_provider = PlainTextAuthProvider(args.username, args.password)
     ssl_options = {"ca_certs": args.ca_path, "cert_reqs": ssl.CERT_REQUIRED}
     with Cluster([args.host], port=args.port, ssl_options=ssl_options, auth_provider=auth_provider,
-                 load_balancing_policy=DCAwareRoundRobinPolicy(local_dc='aiven')) as cluster:
+                     load_balancing_policy=DCAwareRoundRobinPolicy(local_dc='aiven')) as cluster:
         with cluster.connect() as session:
             # Create a keyspace
             session.execute("""
@@ -36,4 +36,4 @@ def cassandra_example(args):
 
             # Read it back
             for row in session.execute("SELECT id, message FROM example_keyspace.example_python"):
-                print("Row: id = {}, message = {}".format(row.id, row.message))
+                print(f"Row: id = {row.id}, message = {row.message}")

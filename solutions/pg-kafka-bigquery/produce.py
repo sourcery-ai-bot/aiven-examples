@@ -21,19 +21,21 @@ def produce(user, password, host, port, database, nb_seconds, nb_per_second):
                                     sslmode='require')
 
         t = 0
-        while t < nb_seconds :
+        postgres_insert_query = """ INSERT INTO cpu_usage(hostname, cpu, usage, occurred_at) values(%s,%s,%s,NOW()::timestamp)"""
+        while t < nb_seconds:
             cursor = connection.cursor()
-            
-            postgres_insert_query = """ INSERT INTO cpu_usage(hostname, cpu, usage, occurred_at) values(%s,%s,%s,NOW()::timestamp)"""
+
             records_to_insert = [
                 (
-                'cluster' + str(random.randint(0,50)), 
-                random.randint(1,4),
-                random.random()*80+20
-                ) for i in range(0, nb_per_second) ]
+                    f'cluster{random.randint(0, 50)}',
+                    random.randint(1, 4),
+                    random.random() * 80 + 20,
+                )
+                for _ in range(nb_per_second)
+            ]
             cursor.executemany(postgres_insert_query, records_to_insert)
             connection.commit()
-            
+
             logger.info("%d records loaded", cursor.rowcount)
 
             time.sleep(1)

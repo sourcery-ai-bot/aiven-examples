@@ -47,8 +47,7 @@ for msg in consumer:
                     with db_pool.connection() as conn:
                         query = create_update_statement(schema, table_name, before, after)
                         a_casted_values = cast_values(a_keys, a_values, table_name)
-                        row_identifier = find_row_identifier(table_name)
-                        if row_identifier:
+                        if row_identifier := find_row_identifier(table_name):
                             keys = row_identifier
                             values = [before[k] for k in keys]
                         else:
@@ -83,8 +82,7 @@ for msg in consumer:
                 try:
                     with db_pool.connection() as conn:
                         query = create_delete_statement(schema, table_name, before)
-                        row_identifier = find_row_identifier(table_name)
-                        if row_identifier:
+                        if row_identifier := find_row_identifier(table_name):
                             keys = row_identifier
                             values = [before[k] for k in keys]
                         casted_values = cast_values(keys, values, table_name)

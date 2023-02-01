@@ -14,7 +14,7 @@ def main():
 
     cursor.execute("SELECT current_database()")
     result = cursor.fetchone()
-    print("Successfully connected to: {}".format(result[0]))
+    print(f"Successfully connected to: {result[0]}")
 
 
 if __name__ == "__main__":

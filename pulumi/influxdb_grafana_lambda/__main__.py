@@ -5,10 +5,10 @@ import pulumi_aws as aws
 
 # Print out connection info
 def export_details(avn, service_type):
-    pulumi.export(service_type + "_uri", avn.service_uri)
-    pulumi.export(service_type + "_username", avn.service_username)
-    pulumi.export(service_type + "_password", avn.service_password)
-    pulumi.export(service_type + "_state", avn.state)
+    pulumi.export(f"{service_type}_uri", avn.service_uri)
+    pulumi.export(f"{service_type}_username", avn.service_username)
+    pulumi.export(f"{service_type}_password", avn.service_password)
+    pulumi.export(f"{service_type}_state", avn.state)
 
 
 # Create service in Aiven

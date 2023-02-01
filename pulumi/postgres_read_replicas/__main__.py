@@ -13,10 +13,10 @@ replicas = [
 
 # Print out connection info
 def export_details(avn, prefix):
-    pulumi.export(prefix + "_uri", avn.service_uri)
-    pulumi.export(prefix + "_username", avn.service_username)
-    pulumi.export(prefix + "_password", avn.service_password)
-    pulumi.export(prefix + "_state", avn.state)
+    pulumi.export(f"{prefix}_uri", avn.service_uri)
+    pulumi.export(f"{prefix}_username", avn.service_username)
+    pulumi.export(f"{prefix}_password", avn.service_password)
+    pulumi.export(f"{prefix}_state", avn.state)
 
 
 # Create service in Aiven
